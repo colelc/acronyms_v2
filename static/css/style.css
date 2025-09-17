@@ -1,0 +1,525 @@
+body {
+    /* background-color: #f2f2ef; */
+    background-color: aliceblue;
+}
+
+.dashBoardContainer {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    gap: 0;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 1rem;
+    /* background-color: white; */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    justify-content: left;
+}
+
+.fullContainer {
+    display: grid;
+    /* grid-template-columns: 1fr 1fr; */
+    grid-template-columns: 0.4fr 1fr;
+    gap: 0;
+    column-gap: 2rem;
+}
+
+.fullContainerHide {
+    display: none;
+}
+
+.beamListContainer {
+    display: grid;
+    grid-template-rows: 1fr;
+    max-height: 80vh;
+    /* width: 50%; */
+    min-width: 0;
+    overflow-y: auto;
+    /* border: 1px solid #CCC; */
+    padding: 1rem;
+    box-sizing: border-box;
+    /* background: #fafafa; */
+}
+
+.captureListContainer {
+    display: grid;
+    grid-template-rows: 1fr;
+    max-height: 80vh;
+    /* width: 50%; */
+    min-width: 0;
+    overflow-y: auto;
+    /* border: 1px solid #CCC; */
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+#beamList {
+    display: grid;
+    grid-auto-rows: minmax(2.25rem, auto);
+    /*gap: 0.5rem;*/
+    gap: 0;
+}
+
+#mappedSeatsContainer {
+    display: grid;
+    /* mirror the approach if you want scrollable grid content */
+    grid-template-rows: 1fr;
+    max-height: 80vh;
+    width: 100%;
+    min-width: 0;
+    /* important to prevent overflow in grid */
+    overflow-y: auto;
+    /* border: 1px solid #CCC; */
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: aliceblue;
+}
+
+/* Optional: styling for the inner mappedSeatsList Grid, similar to beamList */
+#mappedSeatsList {
+    display: grid;
+    grid-auto-rows: minmax(2.25rem, auto);
+    gap: 0;
+}
+
+.poll-line {
+    font-family: monospace;
+    word-wrap: break-word;
+    /* background: #fff; */
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    padding: 0rem;
+    white-space: normal;
+    border: 1px solid #ccc;
+}
+
+.poll-line table {
+    /*table-layout: fixed;*/
+    table-layout: auto;
+    border-collapse: collapse;
+    /* Collapse borders to make clean gridlines */
+    width: 100%;
+}
+
+.poll-line table td {
+    /* border: 1px solid #ddd; */
+    /* light gray gridlines */
+    padding: 0.2rem;
+    font-size: 0.8rem;
+    font-family: monospace;
+}
+
+.poll-line:nth-child(even) {
+    /* background-color: aliceblue; */
+    background-color: white;
+}
+
+.poll-line:nth-child(odd) {
+    background-color: cornsilk;
+}
+
+.capture-line {
+    font-family: monospace;
+    word-wrap: break-word;
+    /* background: #fff; */
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    padding: 0.2rem;
+    white-space: normal;
+    border: 1px solid #ccc;
+}
+
+.capture-line table {
+    /*table-layout: fixed;*/
+    table-layout: auto;
+    border-collapse: collapse;
+    /* Collapse borders to make clean gridlines */
+    width: 100%;
+}
+
+.capture-line table td {
+    /* border: 1px solid #ddd; */
+    /* light gray gridlines */
+    padding: 0.2rem;
+    font-size: 0.8rem;
+    font-family: monospace;
+}
+
+.capture-line:nth-child(even) {
+    /* background-color: aliceblue; */
+    background-color: white;
+}
+
+.capture-line:nth-child(odd) {
+    /* background-color: cornsilk; */
+    background-color: white;
+}
+
+.seat-line {
+    font-family: monospace;
+    word-wrap: break-word;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    padding: 0;
+    white-space: normal;
+    /* background-color: darkgray; */
+    background-color: #e6e7e8;
+}
+
+.seat-line table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    /* Collapse borders to make clean gridlines */
+    width: 100%;
+}
+
+.seat-line table td {
+    /* border: 1px solid #ddd; */
+    border: 1px solid aliceblue;
+    /* light gray gridlines */
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    text-align: center;
+    font-size: 0.7rem;
+    font-family: monospace;
+}
+
+#coords {
+    font-family: monospace;
+}
+
+#coords table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#coords th,
+#coords td {
+    border: 1px solid #ccc;
+    /* Adjust color as needed */
+    padding: 1rem;
+    text-align: left;
+}
+
+/* Optional: Better captions and row spacing */
+#coords caption {
+    font-weight: bold;
+    margin-bottom: 6px;
+    text-align: left;
+}
+
+#coords tr:nth-child(even) {
+    background: #fafafa;
+}
+
+
+.highlight {
+    /* background-color: yellow; */
+    background-color: #d0f2d9;
+    font-weight: bold;
+}
+
+.highlight-green {
+    /* background-color: green; */
+    background-color: #def7d5;
+}
+
+.nohit {
+    background-color: #f7c8c1;
+    /* text-decoration: line-through; */
+}
+
+/* .highlight-green:hover {
+    cursor: pointer;
+} */
+
+/* .green-hit-3 {
+    background-color: green;
+}
+
+.green-hit-3:hover {
+    cursor: pointer;
+}
+
+.green-hit-2 {
+    background-color: #71d671;
+}
+
+.green-hit-2:hover {
+    cursor: pointer;
+}
+
+
+.green-hit-1 {
+    background-color: #def7d5;
+}
+
+.green-hit-1:hover {
+    cursor: pointer;
+} */
+
+.yellow-hit {
+    background-color: yellow;
+}
+
+.highlight-32 {
+    background-color: tan;
+    border-radius: 4px;
+    padding: 0.2rem;
+}
+
+.highlight-33 {
+    background-color: thistle;
+    border-radius: 4px;
+    padding: 0.2rem;
+}
+
+.highlight-34 {
+    background-color: skyblue;
+    border-radius: 4px;
+    padding: 0.2rem;
+}
+
+.highlight-32:hover {
+    cursor: pointer;
+}
+
+.highlight-33:hover {
+    cursor: pointer;
+}
+
+.highlight-34:hover {
+    cursor: pointer;
+}
+
+/* .text-32 {
+    background-color: tan;
+}
+
+.text-33 {
+    background-color: thistle;
+}
+
+.text-34 {
+    background-color: skyblue;
+}
+
+.text-32:hover {
+    cursor: pointer;
+}
+
+.text-33:hover {
+    cursor: pointer;
+}
+
+.text-34:hover {
+    cursor: pointer;
+} */
+
+.edit-me {
+    width: 25ch;
+    background-color: beige;
+}
+
+.title {
+    font-family: monospace;
+    font-weight: bold;
+    padding-right: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+th {
+    text-align: left;
+}
+
+.margins {
+    border: 1px solid grey;
+    border-radius: 5px;
+    text-align: left;
+    font-family: monospace;
+    accent-color: black;
+}
+
+.buttonWidth {
+    width: 7rem;
+    margin-right: 0.5rem;
+}
+
+.quiet {
+    color: #cccfd9;
+}
+
+.noisy {
+    color: black;
+    font-weight: bold;
+}
+
+.empty {
+    background-color: white;
+}
+
+.seat-number {
+    font-family: monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.seat-data-label {
+    font-family: monospace;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.seat-data-style {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    text-align: center;
+    font-family: monospace;
+    height: 1.2rem;
+    /* margin: 1rem; */
+}
+
+.seat-data-style-disable {
+    border: none;
+    text-align: right;
+    font-family: monospace;
+    height: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+/* .seatDataContainer {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 0;
+    justify-items: start;
+    width: 80%;
+    margin-bottom: 1rem;
+    justify-content: start;
+} */
+
+.seatDataContainer {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    gap: 0;
+    /* justify-items: start; */
+    width: 80%;
+    margin: 1rem;
+    /* justify-content: start; */
+}
+
+.seatDataDiv {
+    display: none;
+    background-color: white;
+    padding-left: 1rem;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}
+
+.vertical {
+    display: block;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 0.7rem;
+    accent-color: black;
+}
+
+.capture-seat {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.hitListContainer {
+    display: grid;
+    grid-template-rows: 1fr;
+    max-height: 80vh;
+    /* width: 50%; */
+    min-width: 0;
+    overflow-y: auto;
+    /* border: 1px solid #CCC; */
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.hit-line {
+    font-family: monospace;
+    word-wrap: break-word;
+    /* background: #fff; */
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    padding: 0.2rem;
+    white-space: normal;
+    border: 1px solid #ccc;
+    background-color: green;
+}
+
+.train-class {
+    margin-right: 1rem;
+}
+
+.train-radio-button {
+    accent-color: #def7d5;
+}
+
+.capture-status {
+    font-family: monospace;
+    font-weight: bold;
+    padding-top: 1rem;
+    color: black;
+}
+
+.readings-table {
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+.hit-line table {
+    table-layout: fixed;
+    /* Collapse borders to make clean gridlines */
+    width: 100%;
+    border-collapse: collapse;
+}
+
+
+.hit-line table td {
+    border: 1px solid #ddd;
+    padding: 0.2rem;
+    font-size: 0.8rem;
+    font-family: monospace;
+}
+
+.hit-line:nth-child(even) {
+    background-color: aliceblue;
+    /* background-color: white; */
+}
+
+.hit-line:nth-child(odd) {
+    /* background-color: cornsilk; */
+    background-color: aliceblue;
+    /* background-color: white; */
+}
+
+.filter-seat {
+    display: none;
+    font-family: monospace;
+    font-size: 0.8rem;
+    margin: 0.5rem;
+    accent-color: black;
+}
+
+.filter-beam {
+    display: none;
+    font-family: monospace;
+    font-size: 0.8rem;
+    margin: 0.5rem;
+    accent-color: black;
+}
+
+.beam-class {
+    margin-right: 1rem;
+}
+
+.beam-selector {
+    accent-color: #def7d5;
+}

@@ -1,0 +1,3 @@
+pollData = [];
+captured = [];
+seats = [];
