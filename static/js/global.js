@@ -1,3 +1,0 @@
-pollData = [];
-captured = [];
-seats = [];
