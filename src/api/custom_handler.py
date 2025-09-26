@@ -2,16 +2,13 @@ import json
 import os
 import time
 from http.server import SimpleHTTPRequestHandler
-from src.config.config import Config
-from src.logging.app_logger import AppLogger
+from src.middleware.authentication import Authentication
 
 class CustomHandler(SimpleHTTPRequestHandler):
 
     config = None
     log = None
     web_root = None
-
-
 
     def _set_headers(self, status=200, content_type="application/json"):
         self.send_response(status)
@@ -20,27 +17,19 @@ class CustomHandler(SimpleHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-
-        if self.path == "/api/hello":
-            self._set_headers()
-            response = {"message": "Hello from API!"}
-            self.wfile.write(json.dumps(response).encode())
-
-        elif self.path == "/api/slow":
-            # Simulate slow endpoint for demo purposes
-            time.sleep(5)
-            self._set_headers()
-            self.wfile.write(json.dumps({"message": "This was slow"}).encode())
-
-        elif self.path == "/acronyms":
+        if self.path == "/acronyms":
+            claims = Authentication(self.config).validate_request(self.headers)
+            if not claims:
+                return self._unauthorized()
+                
+            self.claims = claims
+            self.log.info(str(claims))
             self.path = "/html/index.html"
+            return super().do_GET()
 
         else: # for static content (this calls the translate method)
             return super().do_GET()
-
-        # else:
-        #     self._set_headers(404)
-        #     self.wfile.write(json.dumps({"error": "Not found"}).encode())
+            
 
     # mapper for static files
     def translate_path(self, path):
@@ -52,3 +41,9 @@ class CustomHandler(SimpleHTTPRequestHandler):
 
         # Join it with the configured static folder
         return os.path.join(self.web_root, relpath)
+    
+    def _unauthorized(self):
+        self.send_response(401)
+        self.send_header("Content-Type", "application/json")
+        self.end_headers()
+        self.wfile.write(b'{"error":"Unauthorized"}')
