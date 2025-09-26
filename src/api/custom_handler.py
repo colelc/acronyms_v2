@@ -17,7 +17,25 @@ class CustomHandler(SimpleHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        if self.path == "/acronyms":
+        if self.path == "/api/claims":
+            claims = Authentication(self.config).validate_request(self.headers)
+            if not claims:
+                return self._unauthorized()
+
+            # Filter the claims to just the ones you want to show to the frontend
+            # safe_claims = {
+            #     "sub": claims.get("sub"),
+            #     "email": claims.get("email"),
+            #     "roles": claims.get("roles", [])
+            # }
+
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps(claims).encode())
+            return
+        
+        elif self.path == "/acronyms":
             claims = Authentication(self.config).validate_request(self.headers)
             if not claims:
                 return self._unauthorized()

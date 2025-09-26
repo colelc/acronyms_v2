@@ -6,11 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acronyms</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/app.js"></script>
+    <script src="js/authenticate.js"></script>
 </head>
 
 <body>
     <div id="app">well hello</div>
+
+    <!-- Placeholder where we’ll show the current user claims -->
+    <div id="user-info">Loading user info…</div>
+
+    <script>
+        // Automatically call fetchClaims when page loads
+        window.onload = fetchClaims;
+    </script>
 </body>
 
 </html>
