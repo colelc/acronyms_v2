@@ -1,32 +1,44 @@
-import json
+##
+##  pip install -r requirements.txt
+##
+##  python app.py --config=resources/.env  --log=app.log
+##
+##  browser: localhost:8000/     
+
+import argparse
+import os
+from src.services.threaded_http_server import ThreadedHTTPServer
 from src.config.config import Config
 from src.logging.app_logger import AppLogger
+from src.api.custom_handler import CustomHandler
 
-def app(environ, start_response):
-        # parser = argparse.ArgumentParser()
-        # parser.add_argument("--log", type=str)
-        # parser.add_argument("--config", type=str)
-        # args = parser.parse_args()
+class App(object):
 
-        # if os.path.exists(args.log):
-        #     os.remove(args.log)
+    @classmethod
+    def go(cls):
+        parser = argparse.ArgumentParser()
+        parser.add_argument("--log", type=str)
+        parser.add_argument("--config", type=str)
+        args = parser.parse_args()
 
-        #log = AppLogger.set_up_logger(args.log)
-        log = AppLogger.get_logger()
+        if os.path.exists(args.log):
+            os.remove(args.log)
+
+        log = AppLogger.set_up_logger(args.log)
         log.info("")
-        log.info("This is Acronyms V2")
+        log.info("Acronyms V2")
         log.info("")
 
-        #config = Config.set_up_config(args.config)
+        config = Config.set_up_config(args.config)
 
-        path = environ.get("PATH_INFO", "/")
-        log.info("path is " + path)
-        
-        if path == "/acronyms":
-            start_response("200 OK", [("Content-Type", "application/json")])
-            body = {"message": "Hello from Gunicorn API backend!"}
-            return [json.dumps(body).encode("utf-8")]
+        CustomHandler.config = config
+        CustomHandler.log = log
+        CustomHandler.web_root = os.path.join(os.path.dirname(__file__), "static")
+        server_address = (config.get("HOST"), int(config.get("PORT")))
+        httpd = ThreadedHTTPServer(server_address, CustomHandler)
 
-        # Default 404 if not handled
-        start_response("404 Not Found", [("Content-Type", "text/plain")])
-        return [b"Not Found"]
+        log.info("Serving at " + str(config.get("HOST")) + ":" + str(config.get("PORT")))
+        httpd.serve_forever()
+      
+App.go()
+
